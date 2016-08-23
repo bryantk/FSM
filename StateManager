@@ -1,0 +1,32 @@
+using System.Collections.Generic;
+
+public static class StateManager {
+
+    private static Stack<FSMBase> stateQueue;
+    public static FSMBase currentState = null;
+    private static Dictionary<string, FSMBase> states;
+
+
+    public static void iSetup(object o) {
+        stateQueue = new Stack<FSMBase>();
+        states = new Dictionary<string, FSMBase>();
+    }
+
+    public static void Push(string targetState) {
+        if (!states.ContainsKey(targetState))
+            return;
+        currentState = states[targetState];
+        stateQueue.Push(currentState);
+        currentState.OnEnter();
+    }
+
+    public static void Pop() {
+        if (stateQueue.Count == 1)
+            return;
+        if (currentState != null)
+            currentState.OnExit();
+        stateQueue.Pop();
+        currentState = stateQueue.Peek();
+    }
+
+}
