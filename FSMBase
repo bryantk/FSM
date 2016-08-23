@@ -1,0 +1,20 @@
+using System.Collections;
+
+public class FSMBase {
+
+    public FSMState state = FSMState.None;
+
+    public FSMBase(FSMState stateName) {
+        state = stateName;
+    }
+
+	public virtual void OnEnter(object o = null) {
+
+    }
+
+    public virtual void OnExit(object o = null) {
+
+    }
+
+
+}
